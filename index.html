@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Playlistr -- Share From Anywhere</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <link href="main.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header clearfix">
+      <div class="jumbotron">
+        <h1 id="title">Playlistr</h1>
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Enter URL Here" aria-describedby="basic-addon2" id="linkbox">
+          <span class="input-group-addon" id="go">Submit</span>
+        </div>   
+      </div>
+
+      <div class="row marketing">
+        <div class="col-lg-12" >
+          <div class="feature-box">
+            <div id="main">
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer" id="sc">
+      <!-- <iframe src="http://soundcloud.com/oembed?format=js&url=https://soundcloud.com/only1dram/broccoli&iframe=true"></iframe> -->
+      </footer>
+
+    </div> <!-- /container -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="node_modules/embed-js/src/embed.js"></script> 
+    <script src="app.js"></script>
+
+    <script>
+      $('body').on('click', '#go', function(event) {
+        event.preventDefault();
+        var $url = $('#linkbox').val()
+        $('#linkbox').val('');
+
+        if($url.indexOf('youtu') >= 0) {
+          var videoID = ytVidId($url)
+          $('.feature-box').append(`<iframe width="560" height="315" src="https://www.youtube.com/embed/${videoID}" frameborder="0" allowfullscreen></iframe>`)
+          }; 
+          
+        if($url.indexOf('vimeo') >= 0) {
+
+          /*---Soundcloud---*/
+        }
+        if($url.indexOf('soundcl') >= 0) {
+
+          // $url="https://soundcloud.com/epitaph-records/this-wild-life-history";
+          //Get the JSON data of song details with embed code from SoundCloud oEmbed
+          // $getValues=file_get_contents(`http://soundcloud.com/oembed?format=js&url='${$url}'&iframe=true`);
+          // //Clean the Json to decode
+          // $decodeiFrame=substr($getValues, 1, -2);
+          // //json decode to convert it as an array
+          // $jsonObj = json_decode($decodeiFrame);
+          // conosole.log($jsonObj);
+            $('#main').append($url);
+            // console.log('got here')
+            // var html = document.getElementById('main')
+            // $('#main').last().remove();
+            var _player = new EmbedJS({
+              input: document.getElementById('main')
+            })
+            _player.render();
+            // $('.feature-box').append(_player.render())
+        }
+        if($url.indexOf('jpg') >= 0) {
+          $('#main').append($url);
+            // console.log('got here')
+            // var html = document.getElementById('main')
+            // $('#main').last().remove();
+            var _player = new EmbedJS({
+              input: document.getElementById('main')
+            })
+            _player.render();
+        }
+      });
+        
+        
+  </script>
+  </body>
+</html>
+
